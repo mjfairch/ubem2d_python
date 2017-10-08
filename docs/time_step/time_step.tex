@@ -1,0 +1,36 @@
+\documentclass[10pt]{article}
+\usepackage{amsmath,amssymb}
+\usepackage[margin=1.5in]{geometry}
+\usepackage[colorlinks]{hyperref}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhead{}
+\fancyfoot{}
+\fancyhead[CO]{\textsc{\small Choosing the Time Step}}
+\fancyfoot[L]{\href{http://mikef.org}{\emph{\small Michael J. Fairchild}}}
+\fancyfoot[R]{\emph{\small Princeton University}}
+
+\newcommand\defn[1]{\emph{#1}}
+\def\eg{e.g.~}
+\def\ie{i.e.~}
+
+\begin{document}
+When setting up an unsteady time-stepping simulation, the choice of time step is very important.  Two goals for the time step are for it to be (I) small enough to capture the relevant dynamics, and (II) as large as possible to avoid unnecessary work.  This note gives guidance on choosing a time step to satisfy these two opposing goals.
+
+The \defn{convective time} $\tau$ is the time required for the background flow, of speed $U$, to travel a characteristic distance $L$ (\eg airfoil chord), and hence $\tau = L/U$.  If there are several bodies in the flow, we take $L$ to be the smallest of the diameters of the bodies.
+
+The \defn{kinematic time} $T_k$ is a characteristic time for unsteady kinematics.  For example, if the pitch angle $\alpha$ of a pitching airfoil is encoded by the Fourier series
+\begin{equation}\label{eqn:fourier}
+\alpha(t)=\sum_{n=1}^Na_n\sin(2\pi nf_1t+\delta_n),
+\end{equation}
+with \defn{fundamental frequency} $f_1$ (in Hz), the kinematic time is the reciprocal of the highest frequency, \ie $T_k=1/(Nf_1)$, whereas for an airfoil undergoing a pitch-up maneuver, the kinematic time would instead be the \defn{rise time}, \ie the time for the airfoil to complete some predefined fraction of its pitch-up maneuver.
+
+If there are several kinematic time scales $T_{k_1},\ldots,T_{k_n}$ in the system (\eg when multiple bodies are present in the flow, each with its own kinematic time scale), the \defn{fast time} is $T_f:=\min\{T_{k_1},\ldots,T_{k_n}\}$.  The problem is to determine a time step $dt$ that is ``small'' relative to both the convective time $\tau$ and the fast time $T_f$.  To make the notion of ``small'' nondimensional, define the \defn{resolution} as the ratio $r:=\frac{\min\{\tau,T_f\}}{dt}$.  Hence a resolution of $50$ means that $dt=\frac{1}{50}\min\{\tau,T_f\}$, \ie that 50 steps are required for $\min\{\tau,T_f\}$ seconds to elapse.  Doubling the resolution halves the time step, which means finer details of the dynamics will be captured.  To achieve resolution $r$, choose the time step \[dt=\frac{\min\{\tau,T_f\}}{r}.\]
+
+If the motion is periodic, we usually want an integer number of steps per cycle, \ie $dt=T/n$ for some integer $n$, where $T$ is the period.  We want to choose $n$ as small as possible (goal II) subject to the constraint that $\frac{T}{n}=dt\leq\frac{\min\{\tau,T_f\}}{r}$ (goal I), which is equivalent to $n$ being the smallest positive integer such that $n\geq\frac{rT}{\min\{\tau,T_f\}}$.  Hence \[n=\left\lceil\frac{rT}{\min\{\tau,T_f\}}\right\rceil\quad,\quad dt=T/n.\]
+
+The \defn{simulation time} $T_\text{sim}$ is the total (or maximal) duration of the simulation.  Usually we want at least a certain multiple, say $N_k$, of $\max\{T_{k_1},\ldots,T_{k_n}\}$ time to elapse, as well as a certain multiple, say $N_\tau$, of convective time $\tau$ to elapse.  Hence the simulation time is \[T_\text{sim}=\max\{N_k\max\{T_{k_1},\ldots,T_{k_n}\},N_\tau\tau\}.\]  If the time step $dt$ is fixed, the total number of steps is $n_\text{steps}=\lceil T_\text{sim}/dt\rceil$.
+
+Finally, the choice of resolution $r$ depends on what is being measured.  In practice, one starts in the spirit of goal II by choosing a small resolution $r$ and then iteratively increasing it (often doubling it each time) until the measured quantity changes from its previous value by less than some relative tolerance, \eg one part per hundred, thus achieving goal I.
+\end{document}

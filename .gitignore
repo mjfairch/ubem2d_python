@@ -1,0 +1,9 @@
+.DS_Store
+.*.swp
+__pycache__*
+docs/**/*.aux
+docs/**/*.bbl
+docs/**/*.blg
+docs/**/*.log
+docs/**/*.out
+docs/**/*.synctex.gz
