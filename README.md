@@ -23,7 +23,7 @@ Each of `numpy`, `matplotlib`, and `scipy` are Python packages, which may be ins
 LaTeX documentation of the underlying fluid dynamics, as well as details of the Python implementation, may be found in the `docs` subdirectory.
 
 ## Installation and Verification
-After installing the aforementioned dependencies into a Python-3 environment, the user may wish to append the installation directory to one's `PYTHON_PATH` environment variable.  The following examples and test cases may be used to verify the installation and the validity of the code.
+If the user does not wish to run all the examples and validation code from the `ubem2d_python` home directory, then append that directory to the `PYTHON_PATH` environment variable.  The following examples and test cases may be used to verify the installation and the validity of the code.
 
 ### Pre-defined examples
 Several examples of increasing complexity are provided in order to demonstrate the basic usage of the library, including:
