@@ -34,14 +34,19 @@ print('Steady-state moment coefficient (CM): {:<.3f}'.format(ss_CM))
 # ------------------------------------------------------------
 def pitch_ramp(time, dalp, trise):
     while (True):
-        t = next(time)
-        if (t <= 0):
-            alp = 0.
-        elif (t <= trise):
-            alp = dalp*(3.-2*t/trise)*(t/trise)**2
-        else:
-            alp = dalp
-        yield t, (alp, 0.)
+        try:
+            t = next(time)
+            if (t <= 0):
+                alp = 0.
+            elif (t <= trise):
+                alp = dalp*(3.-2*t/trise)*(t/trise)**2
+            else:
+                alp = dalp
+            yield t, (alp, 0.)
+        except:
+            # https://stackoverflow.com/questions/51700960
+	        # https://www.python.org/dev/peps/pep-0479/
+            return
 
 tau = foil.chord/np.linalg.norm(uinf)     # Convective time
 time = ubem.time_stepper(ts, nsteps)
