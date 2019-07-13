@@ -21,8 +21,11 @@ def function_stepper(domain_generator, f):
     A generator which yields the graph of a given function over a domain.
     '''
     while (True):
-        x = next(domain_generator)
-        yield x, f(x)
+        try:
+            x = next(domain_generator)
+            yield x, f(x)
+        except:
+            return
 
 if __name__ == '__main__':
     time = arithmetic_stepper(.1, stop = lambda i,x: i >= 10)
