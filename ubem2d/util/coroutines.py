@@ -25,6 +25,8 @@ def function_stepper(domain_generator, f):
             x = next(domain_generator)
             yield x, f(x)
         except:
+            # https://stackoverflow.com/questions/51700960
+            # https://www.python.org/dev/peps/pep-0479/
             return
 
 if __name__ == '__main__':
