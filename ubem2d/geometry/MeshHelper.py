@@ -96,4 +96,4 @@ def mesh(bodies, nx=50, ny=50, margin=.5, equal=True):
     ypad = dy*margin
     xmin, xmax = xmin-xpad, xmax+xpad
     ymin, ymax = ymin-ypad, ymax+ypad
-    return np.meshgrid(np.linspace(xmin,xmax,nx),np.linspace(ymax,ymin,ny))
+    return np.meshgrid(np.linspace(xmin,xmax,nx),np.linspace(ymin,ymax,ny))

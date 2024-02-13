@@ -1,6 +1,7 @@
 import os
 import numpy as np
 import numpy.linalg as nla
+import matplotlib
 import matplotlib.pyplot as plt
 import ubem2d as ubem
 
@@ -81,7 +82,7 @@ def solve_and_plot(uinf, circ, cyl, axis, At, An, X, Y, I):
     m,M = np.min(Z[exterior_nodes]), np.max(Z[exterior_nodes])
     lvls = np.linspace(m,M,50)
     lvls = lvls[np.where(np.abs(lvls) > 0.01*(M-m))]
-    CS = plt.contourf(X,Y,Z,lvls,cmap=plt.cm.get_cmap('winter'))
+    CS = plt.contourf(X,Y,Z,lvls,cmap=matplotlib.colormaps['winter'])
     plt.contour(CS, levels=CS.levels[::2],colors='k')
     xy = np.array([[x,y] for x in X[0,:] for y in Y[:,0]])
     plt.plot(xy[:,0],xy[:,1],'o',markersize=.25)

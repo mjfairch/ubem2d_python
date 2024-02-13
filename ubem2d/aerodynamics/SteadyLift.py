@@ -38,5 +38,5 @@ def steady_lift_model(foil, aoa0, aoa1, n):
         cp = sys.pressure_self(uinf, soln)[0]
         CD,CL,CM = airfoil_cdclcm(uinf, foil, cp)
         b[i] = CL
-    x = nla.lstsq(A,b)[0][:,0]
+    x = nla.lstsq(A,b,rcond=None)[0][:,0]
     return (x[0],x[1],A[:,1],b)

@@ -19,19 +19,21 @@ This code has a few standard dependencies, namely:
 
 Each of `numpy`, `matplotlib`, and `scipy` are Python packages, which may be installed in the usual way (e.g. `conda install` or `pip install`).  The `ffmpeg` dependency is a library the user installs on their operating system (e.g. with `brew install ffmpeg`, or by visiting the [ffmpeg homepage](http://ffmpeg.org/)).
 
+Maintenance updates performed on 13-Feb-2024 to work with Python 3.12.2, matplotlib 3.8.2, numpy 1.26.4, and scipy 1.12.0.
+
 ## Documentation
 LaTeX documentation of the underlying fluid dynamics, as well as details of the Python implementation, may be found in the `docs` subdirectory.
 
 ## Installation and Verification
-If the user does not wish to run all the examples and validation code from the `ubem2d_python` home directory, then append that directory to the `PYTHON_PATH` environment variable.  The following examples and test cases may be used to verify the installation and the validity of the code.
+If the user does not wish to run all the examples and validation code from the `ubem2d_python` home directory, then append that directory to the `PYTHONPATH` environment variable.  The following examples and test cases may be used to verify the installation and the validity of the code.
 
 ### Pre-defined examples
 Several examples of increasing complexity are provided in order to demonstrate the basic usage of the library, including:
 
-* Test steady flow past a cylinder: `python examples/cylinder.py`
 * Test steady flow past a NACA airfoil: `python examples/naca.py`
 * Test steady flow past several NACA airfoils: `python examples/naca_multiple.py`
 * Test unsteady flow past a moving NACA airfoil: `python examples/unsteady.py`
+* Test kinematics and animation: `python examples/animate_kinematics.py`
 
 ### Validation
 Several validation cases are provided:
@@ -52,8 +54,8 @@ Ngai-Huat Teng, _THE DEVELOPMENT OF A COMPUTER CODE (U2DIIF) FOR THE NUMERICAL S
 ### Unit tests
 Several unit tests are available in the `ubem2d/tests` directory, which the user may invoke with Python's `unittest` module in the usual manner.  For example:
 
-* `python -m unittest ubem2d/test/test_cylinder.py`
-* `python -m unittest ubem2d/test/test_hess_smith.py`
-* `python -m unittest ubem2d/test/test_steady_lift_model.py`
+* `python -m unittest ubem2d/tests/test_cylinder.py`
+* `python -m unittest ubem2d/tests/test_hess_smith.py`
+* `python -m unittest ubem2d/tests/test_steady_lift_model.py`
 
 In addition, many modules have a `__main__` method which may be used to demonstrate their basic usage.
