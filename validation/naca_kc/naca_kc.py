@@ -9,6 +9,8 @@ if __name__ == '__main__':
     Validate the pressure coefficient around a NACA 2412 airfoil at 8 degrees
     angle of attack vs. that published in Kuethe & Chow's book, the latter
     using a linear-strength vortex panel method.
+    
+    Reference: Foundations of Aerodynamics, 4th Ed, by Kuethe and Chow, ISBN 0471806943, p.136. 
     '''
     # Set up and solve flow problem
     code = '2412'  # NACA 4-digit code number
