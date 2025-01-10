@@ -5,7 +5,7 @@ from ubem2d.geometry.Orientation import Orientation
 __all__ = ['naca4']
 
 def parse_naca4_code(code):
-    if (len(code) is not 4):
+    if (len(code) != 4):
         raise ValueError('NACA code must be four digits')
     m = .01*float(code[0])    # max camber
     p = .1*float(code[1])     # position of max camber along chord
